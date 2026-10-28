@@ -11,11 +11,31 @@ launch:
   - arg:
       name: "height"
       default: "480"
+  - arg:
+      name: "hsv_lower"
+      default: "[85, 70, 70]"
+  - arg:
+      name: "hsv_upper"
+      default: "[105, 255, 255]"
+  - arg:
+      name: "num_balls"
+      default: "3"
+  - arg:
+      name: "hold_duration"
+      default: "2.0"
+  - arg:
+      name: "ball_radius"
+      default: "40"
+  - arg:
+      name: "ball_speed"
+      default: "150.0"
+  - arg:
+      name: "min_area"
+      default: "300"
 
   - node:
       pkg: "bouncing_ball_catcher"
       exec: "camera_node"
-      name: "camera_node"
       output: "screen"
       emulate_tty: true
       param:
@@ -35,3 +55,41 @@ launch:
         name: "height"
         value: "$(var height)"
         type: "int"
+
+  - node:
+      pkg: "bouncing_ball_catcher"
+      exec: "game_node"
+      output: "screen"
+      emulate_tty: true
+      param:
+      -
+        name: "hsv_lower"
+        value: "$(var hsv_lower)"
+      -
+        name: "hsv_upper"
+        value: "$(var hsv_upper)"
+      -
+        name: "num_balls"
+        value: "$(var num_balls)"
+        type: "int"
+      -
+        name: "hold_duration"
+        value: "$(var hold_duration)"
+        type: "float"
+      -
+        name: "ball_radius"
+        value: "$(var ball_radius)"
+        type: "int"
+      -
+        name: "ball_speed"
+        value: "$(var ball_speed)"
+        type: "float"
+      -
+        name: "min_area"
+        value: "$(var min_area)"
+        type: "int"
+
+  - node:
+      pkg: "rqt_image_view"
+      exec: "rqt_image_view"
+      args: "/game/debug_image"

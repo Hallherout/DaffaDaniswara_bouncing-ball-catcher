@@ -22,6 +22,15 @@ ament_target_dependencies(camera_node
   OpenCV
 )
 
+add_executable(game_node src/game_node.cpp)
+ament_target_dependencies(game_node
+  rclcpp
+  sensor_msgs
+  std_msgs
+  cv_bridge
+  OpenCV
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -36,6 +45,7 @@ endif()
 
 install(TARGETS
     camera_node
+    game_node
     DESTINATION lib/${PROJECT_NAME}
 )
 

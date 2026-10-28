@@ -62,6 +62,8 @@ private:
             vid_.set(cv::CAP_PROP_POS_FRAMES, 0);
             vid_ >> frame;
         }
+
+        if(!isAllDigits(this->get_parameter("source").as_string())) cv::flip(frame, frame, 0);
         cv::resize(frame, frame, cv::Size(this->get_parameter("width").as_int(), this->get_parameter("height").as_int()));
         auto msg = cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8", frame).toImageMsg();
         msg->header.stamp = this->now();
